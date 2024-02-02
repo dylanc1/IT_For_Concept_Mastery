@@ -1,1 +1,1 @@
-# CS495-Project---IT-For-Concept-Mastery
+# IT-For-Concept-Mastery
