@@ -19,6 +19,7 @@ Currently have:
 - Layout for pages
 - very plain homepage w tab title
 - very plain help w tab title
+- title helper method
 
-Book chapter: Finished Ch 3
+Book chapter: Finished Ch 4
 - ignored about page as we don't need one
