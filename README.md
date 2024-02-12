@@ -16,10 +16,8 @@ Test suite currently tests:
 ## Progress Update
 
 Currently have:
-- Layout for pages
-- very plain homepage w tab title
-- very plain help w tab title
+- CSS layout for pages
 - title helper method
 
-Book chapter: Finished Ch 4
+Book chapter: Finished Ch 5.1.2
 - ignored about page as we don't need one
