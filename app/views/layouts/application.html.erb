@@ -9,27 +9,14 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <!--[if lt IE 9]>
-      <script
-src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
-      </script>
-    <![endif]-->
+
+    <%= render 'layouts/shim' %>
   </head>
 
   <body>
-      <header class="navbar navbar-fixed-top navbar-inverse">
-        <div class="container">
-          <%= link_to "IT For Concept Mastery", '#', id: "logo" %>
-          <nav>
-            <ul class="nav navbar-nav navbar-right">
-              <li><%= link_to "Home", '#' %></li>
-              <li><%= link_to "Help", '#' %></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-    <div class="container">
-    <%= yield %>
+      <%= render 'layouts/header' %>
+      <div class="container">
+        <%= yield %>
     </div>
   </body>
 

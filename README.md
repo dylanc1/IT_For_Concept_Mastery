@@ -12,12 +12,15 @@ To run test suite:
 Test suite currently tests:
 - 2 pages reached correctly
 - 2 pages correct title
+- 3 links reached correctly
 
 ## Progress Update
 
 Currently have:
 - CSS layout for pages
-- title helper method
+- Partil helpers
+- Working links
 
-Book chapter: Finished Ch 5.1.2
-- ignored about page as we don't need one
+Book chapter: Finished up until 5.4
+- ignored about, contact pages as we don't need one
+- ignored footer as we don't need one
