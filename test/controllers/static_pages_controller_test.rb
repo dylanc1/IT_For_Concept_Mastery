@@ -12,4 +12,10 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "title", "Help | IT For Concept Mastery"
   end
+
+  test "should get learning" do
+    get static_pages_learning_url
+    assert_response :success
+    assert_select "title", "Learning | IT For Concept Mastery"
+  end
 end
