@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get "/help", to: "static_pages#help"
   get "/signup", to: "users#new"
   get "/learning", to: "static_pages#learning"
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
   resources :users
 
   # assessments
