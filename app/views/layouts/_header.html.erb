@@ -20,9 +20,15 @@
             </a>
             <ul id="dropdown-menu" class="dropdown-menu">
               <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Learning", learning_path %></li>
-              <li><%= link_to "Assessments", assessments_study_activities_url %></li>
-              <li><%= link_to "Settings", '#' %></li>
+              <li><%= link_to "Account Settings", edit_user_path(current_user) %></li>
+                <li><%= link_to "Learning", learning_path %></li>
+              <%if current_user.admin > 1 %>
+                <li class="divider"></li>
+                <li><%= link_to "Assessments", assessments_study_activities_url %></li>
+              <% end %>
+              <%if (current_user.admin % 5) == 0 %>
+                <li><%= link_to "Users", users_path %></li>
+              <% end %>
               <li class="divider"></li>
               <li>
                 <%= link_to "Log out", logout_path, data: {"turbo-method": :delete } %>

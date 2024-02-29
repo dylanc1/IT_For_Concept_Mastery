@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   # assessments
 
   get 'assessments/study_activities'
-  #resources :study_activities
-  #get 'assessments/study_activities/:id' to 'study_activities#show'
+  # resources :study_activities
+  # get 'assessments/study_activities/:id' to 'study_activities#show'
 
 
   # for individual quiz implementation

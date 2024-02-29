@@ -9,18 +9,16 @@ To run test suite:
 
 > $ rails test
 
-Test suite currently tests:
-- 2 pages reached correctly
-- 2 pages correct title
-- 3 links reached correctly
+## Development Server
+
+To run on development server:
+
+> $ rails server
 
 ## Progress Update
 
-Currently have:
-- CSS layout for pages
-- Partil helpers
-- Working links
-
-Book chapter: Finished up until 5.4
-- ignored about, contact pages as we don't need one
-- ignored footer as we don't need one
+Just Added:
+- Admin column to table (integer), divisible by 5 if dev admin, 3 if user admin, 2 if manager admin
+- All users page (only for dev admin), can delete users
+- 3 example accounts each with different admin status, 20 other seeded example accounts
+- Required to be logged in for sensitive pages
