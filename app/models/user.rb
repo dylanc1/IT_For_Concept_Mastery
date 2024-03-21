@@ -11,8 +11,10 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
   has_secure_password
+  VALID_PASSWORD_REGEX = /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*+=]).{1,}\z/
 
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :password, presence: true, length: { minimum: 8 }, 
+            allow_nil: true, format: {with: VALID_PASSWORD_REGEX}
 
   # Returns the hash digest of the given string.
   def User.digest(string)
