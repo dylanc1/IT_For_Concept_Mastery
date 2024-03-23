@@ -25,9 +25,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       reset_session
-      log_in @user
-      flash[:success] = "Welcome to our App!"
-      redirect_to @user
+      # Updated to require log in upon successful signup
+      flash[:success] = "Welcome to our App! Please log in to continue."
+      redirect_to login_path
     else
       render 'new', status: :unprocessable_entity
     end

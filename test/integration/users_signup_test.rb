@@ -22,7 +22,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          password_confirmation: "Password1!" } }
     end
     follow_redirect!
-    assert_template 'users/show'
-    assert is_logged_in?
+    # User is no longer logged in upon signup, and is taken to the log in page
+    assert_template 'sessions/new'
+    assert_not is_logged_in?
   end
 end
