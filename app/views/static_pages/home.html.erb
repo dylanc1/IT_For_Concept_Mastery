@@ -1,9 +1,17 @@
 <div class="center jumbotron">
-  <h1>Welcome To Our Project</h1>
-<h2>Interactive Technology For Concept Mastery Home Page</h2>
+  <h1>Interactive Technology for Concept Mastery</h1>
+
+<% if !logged_in? %>
+<h2>Please sign up or log in to access our site.</h2>
+<% end %>
+
+<% if logged_in? %>
+<h2>Welcome back to our site!</h2>
+<% end %>
+
 <% if !logged_in? %>
 <%= link_to "Sign Up", signup_path, class: "btn btn-lg btn-primary" %>
 <% end %>
 </div>
 
-<%= image_tag("duoExample.svg", alt: "Duo logo", width: "200")%>
+<h2><%= image_tag("quanthub.jpg", alt: "QuantHub Logo", width: "400")%></h2>
