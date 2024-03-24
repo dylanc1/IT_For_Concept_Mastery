@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :skills
 
   # users
 
@@ -9,11 +10,17 @@ Rails.application.routes.draw do
   root "static_pages#home"
   get "/help", to: "static_pages#help"
   get "/signup", to: "users#new"
-  get "/learning", to: "static_pages#learning"
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   resources :users
+
+  # learning
+
+  get 'learning/dashboard'
+  get 'learning/skills'
+
+  get "/learning", to: "learning#dashboard"
 
   # assessments
 
