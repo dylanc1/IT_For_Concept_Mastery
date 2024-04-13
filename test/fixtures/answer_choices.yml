@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+oneA:
+  content: "A"
+  question: one
+
+oneB:
+  content: "B"
+  question: one
+
+oneC:
+  content: "C"
+  question: one
+
+twoT:
+  content: "True"
+  question: two
+  
+twoF:
+  content: "False"
+  question: two

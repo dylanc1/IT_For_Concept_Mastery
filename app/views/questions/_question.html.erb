@@ -1,0 +1,29 @@
+<div class="question">
+    <h3>Question:</h3>
+    <p class="content"><%= question.content %></p>
+    <p class="option">Choices:</p>
+    <ul>
+        <% question.answer_choices.each do |answer_choice| %>
+            <li><%= answer_choice.content %> </li>
+        <% end %>
+    </ul>
+    <div id="answer block" style.visibility = 'visible'>
+         <p class="option">Answer: </p>
+        <ul class="answer"><li><%= question.answer %></li></ul>
+    </div>
+    <!--%= button_to "", @question, method: :delete %-->
+    <!--<input type=button value="View the answer" onclick="console.log("here"); showHideDiv('answer block');">-->
+</div>
+<script language="javascript" type="text/javascript">
+    function showHideDiv(elementId) {
+        console.log("here");
+        if (document.getElementById) {
+            var element = document.getElementById(elementId);
+            if (element.style.visibility == 'hidden') {
+                element.style.visibility = 'visible';
+            } else if (element.style.visibility == 'visible') {
+                element.style.visibility = 'hidden';
+            }
+        }
+    }
+</script>

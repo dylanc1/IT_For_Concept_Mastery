@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :skills
+  resources :questions
+  resources :answer_choices
 
   # users
 

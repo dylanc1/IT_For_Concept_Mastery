@@ -194,3 +194,21 @@ input {
     border-bottom: 1px solid $gray-lighter;
   }
 }
+
+/* Skills */
+.question {
+  padding: 10px 0;
+  border-top: 1px solid #e8e8e8;
+  .answer {
+    color: $gray-light;
+    display: block;
+  }
+  .content {
+    display: block;
+    margin-left: 10px;
+  }
+  .option {
+    display: block;
+    margin-left: 0px;
+  }
+}

@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Questions</h1>
+
+<div id="questions">
+  <% @questions.each do |question| %>
+    <p>
+      <strong>Q:</strong>
+      <%= question.content %>
+    </p>
+  
+    <p>
+      <strong>A:</strong>
+      <%= question.answer %>
+    </p>
+    <p>
+      <%= link_to "Show this question", question %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New skill", new_skill_path %>

@@ -8,5 +8,26 @@
     <strong>Description:</strong>
     <%= skill.description %>
   </p>
+  
+  <p>
+    <% if skill.questions.any? %>
+      <strong>Questions:</strong>
+    <% end %>
+    <ol>
+      <% skill.questions.each do |question| %>
+        <li>
+          <p>
+            Q:
+            <%= question.content %>
+          </p>
+        
+          <p>
+            A: <%= question.answer %>
+          </p>
+          <span class="hello"><%= link_to "View this question", question %></span>
+        </li>
+      <% end %>
+    </ol>
+  </p>
 
 </div>
