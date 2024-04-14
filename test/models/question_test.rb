@@ -2,7 +2,7 @@ require "test_helper"
 
 class QuestionTest < ActiveSupport::TestCase
   def setup
-    @question = Question.new(content: "Lorem ipsum?", answer: "dolor sit amet")
+    @question = Question.new(content: "Lorem ipsum?", correct_answer: "dolor sit amet")
   end
   
   test "should be valid" do

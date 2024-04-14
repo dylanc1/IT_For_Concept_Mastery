@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_08_022627) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_13_201021) do
   create_table "answer_choices", force: :cascade do |t|
     t.text "content"
     t.integer "question_id", null: false
@@ -18,6 +18,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_08_022627) do
     t.datetime "updated_at", null: false
     t.index ["question_id", "created_at"], name: "index_answer_choices_on_question_id_and_created_at"
     t.index ["question_id"], name: "index_answer_choices_on_question_id"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.text "content"
+    t.integer "question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "question_assignments", force: :cascade do |t|
@@ -31,7 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_08_022627) do
 
   create_table "questions", force: :cascade do |t|
     t.text "content"
-    t.text "answer"
+    t.text "correct_answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -55,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_08_022627) do
   end
 
   add_foreign_key "answer_choices", "questions"
+  add_foreign_key "answers", "questions"
   add_foreign_key "question_assignments", "questions"
   add_foreign_key "question_assignments", "skills"
 end

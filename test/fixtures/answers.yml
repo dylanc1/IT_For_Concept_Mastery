@@ -2,8 +2,8 @@
 
 one:
   content: MyText
-  correct_answer: MyText
+  question: one
 
 two:
   content: MyText
-  correct_answer: MyText
+  question: two

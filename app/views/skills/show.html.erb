@@ -4,6 +4,7 @@
 
 <div>
   <%= link_to "Edit this skill", edit_skill_path(@skill) %> |
+  <%= link_to "Assess this skill", quiz_skill_path(@skill) %> |
   <%= link_to "Back to skills", skills_path %>
 
   <%= button_to "Destroy this skill", @skill, method: :delete %>

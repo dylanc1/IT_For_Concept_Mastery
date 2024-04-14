@@ -1,0 +1,34 @@
+<p style="color: green"><%= notice %></p>
+<h1>Quiz:</h1>
+<p>Q: <%= @curr_question.content  %></p>
+<% if @curr_question.answer_choices.count > 0 %>
+    <%= form_tag submit_answer_path, method: :post do %>
+      <div class="radio-group">
+        <% @curr_question.answer_choices.each do |option| %>
+          <div class="choice">
+            <%= radio_button_tag 'answer_choice_id', option.id %>
+            <%= label_tag "answer_choice_#{option.id}", option.content %>
+          </div>
+        <% end %>
+      </div>
+      <%= submit_tag "Submit" %>
+    <% end %>
+<% else %>
+    <p>No answer choices!</p>
+    <%= form_for @curr_question.answer do |f| %>
+        <div class="radio-group">
+            <% @curr_question.answer_choices.each do |option| %>
+                <div class="choice">
+                    <%= f.radio_button :id, option.id %>
+                    <%= f.label :id, option.content %>
+                </div>
+            <% end %>
+        </div>
+        <%= f.submit "Submit" %>
+    <% end %>
+<% end %>
+<!--%= render @skill %-->
+
+<div>
+  <%= link_to "Back to skill", skill_path %>
+</div>

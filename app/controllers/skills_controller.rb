@@ -18,6 +18,12 @@ class SkillsController < ApplicationController
   # GET /skills/1/edit
   def edit
   end
+  
+  # GET /skills/1/quiz
+  def quiz
+    set_skill
+    @curr_question = @skill.questions.first
+  end
 
   # POST /skills or /skills.json
   def create
