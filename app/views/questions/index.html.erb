@@ -5,12 +5,25 @@
 <div id="questions">
   <% @questions.each do |question| %>
     <p>
-      <strong>Q:</strong>
+      <strong>Question:</strong>
       <%= question.content %>
     </p>
-  
+
     <p>
-      <strong>A:</strong>
+      <% if question.answer_choices.present? %>
+        <strong>Answer Choices:</strong>
+        <ul>
+          <% question.answer_choices.each do |answer_choice| %>
+            <li><%= answer_choice.content %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <em>No answer choices available for this question.</em>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Correct Answer:</strong>
       <%= question.correct_answer %>
     </p>
     <p>
@@ -19,4 +32,4 @@
   <% end %>
 </div>
 
-<%= link_to "New skill", new_skill_path %>
+<%= link_to "New question", new_question_path %>

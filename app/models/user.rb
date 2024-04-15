@@ -3,10 +3,10 @@ class User < ApplicationRecord
 
   before_save { email.downcase! }
 
-  VALID_NAME_REGEX = /\A[a-zA-Z][\w\s\-]*\z/
+  VALID_NAME_REGEX = /\A[a-zA-Z][\w\s'\-]*\z/
   validates :name, presence: true, length: { maximum: 50, message: "cannot be more than 50 characters" },
             format: { with: VALID_NAME_REGEX,
-                      message: "must start with a letter and can only contain letters, numbers, spaces, underscores, and dashes" }
+                      message: "must start with a letter and can only contain letters, numbers, spaces, underscores, dashes, and apostrophes" }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255, message: "cannot be over 255 characters" },
@@ -17,7 +17,7 @@ class User < ApplicationRecord
   VALID_PASSWORD_REGEX = /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*+=]).{1,}\z/
 
   validates :password, presence: true, length: { minimum: 8, message: "must be at least 8 characters long" },
-            allow_nil: true, format: {with: VALID_PASSWORD_REGEX, 
+            allow_nil: true, format: {with: VALID_PASSWORD_REGEX,
                                       message: "must contain at least one lowercase character, an uppercase character, a digit, and a special character"}
 
   # Returns the hash digest of the given string.
