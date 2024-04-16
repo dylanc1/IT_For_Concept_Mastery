@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 <h1>Quiz:</h1>
-<p>Q: <%= @curr_question.content  %></p>
+<p>Question <%= @curr_id + 1 %>: <%= @curr_question.content  %></p>
 <% if @curr_question.answer_choices.count > 0 %>
     <%= form_tag submit_answer_path, method: :post do %>
       <div class="radio-group">
@@ -11,22 +11,18 @@
           </div>
         <% end %>
       </div>
-      <%= submit_tag "Submit" %>
+      <%= submit_tag "Submit", id: "submit-btn" %>
     <% end %>
 <% else %>
-    <p>No answer choices!</p>
-    <%= form_for @curr_question.answer do |f| %>
-        <div class="radio-group">
-            <% @curr_question.answer_choices.each do |option| %>
-                <div class="choice">
-                    <%= f.radio_button :id, option.id %>
-                    <%= f.label :id, option.content %>
-                </div>
-            <% end %>
-        </div>
-        <%= f.submit "Submit" %>
+    <%= form_tag submit_text_answer_path(question_id: @curr_question.id), method: :post do %>
+      <div class="radio-group">
+        <%= label_tag(:answer, "Answer:") %>
+        <%= text_field_tag(:answer) %>
+      </div>
+      <%= submit_tag "Submit", id: "submit-btn" %>
     <% end %>
 <% end %>
+<%= link_to '<button>Next Question</button>'.html_safe, quiz_skill_path(q: @curr_id) %> <!--, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px'-->
 <!--%= render @skill %-->
 
 <div>
