@@ -4,24 +4,43 @@ class AnswersController < ActionController::Base
   end
   
   def submit
+    if params[:answer_choice_id].nil?
+      flash[:danger] = "Please select an option"
+      redirect_to request.referrer
+      return
+    end
+    
+    score = params[:c].to_i
+    attempts = params[:a].to_i + 1
+    
     @answer_choice = AnswerChoice.find_by(id:  params[:answer_choice_id])
     if check(@answer_choice)
       flash[:success] = "Correct!"
-      
+      score += 1
     else
       flash[:danger] = "Incorrect :("
     end
-    redirect_to request.referrer
+    redirect_to quiz_skill_url(id: params[:s_id].to_i, q: params[:q].to_i, c: score, a: attempts)
   end
   
   def submit_text
-    @question = Question.find_by(id:  params[:question_id])
+    if params[:answer].nil? || params[:answer] == ''
+      flash[:danger] = "Please submit a response"
+      redirect_to request.referrer
+      return
+    end
+    
+    score = params[:c].to_i
+    attempts = params[:a].to_i + 1
+    
+    @question = Question.find_by(id: params[:q_id])
     if @question.correct_answer.downcase == params[:answer].downcase
       flash[:success] = "Correct!"
+      score += 1
     else
       flash[:danger] = "Incorrect :("
     end
-    redirect_to request.referrer
+    redirect_to quiz_skill_url(id: params[:s_id].to_i, q: params[:q].to_i, c: score, a: attempts)
   end
   
   private

@@ -25,11 +25,23 @@ class SkillsController < ApplicationController
     all_questions = @skill.questions
     if params[:q].nil?
       @curr_id = 0
+      @curr_score = 0
+      @curr_att = 0
     else
-      @curr_id = (params[:q].to_i + 1) % all_questions.length
+      if params[:q].to_i == all_questions.length
+        redirect_to submit_quiz_path(c: params[:c].to_i, a: params[:a].to_i)
+        return
+      end
+      @curr_id = params[:q].to_i % all_questions.length
+      @curr_score = params[:c].to_i
+      @curr_att = params[:a].to_i
     end
     @curr_question = all_questions[@curr_id]
-      
+  end
+  
+  def submit_quiz
+    @curr_score = params[:c]
+    @curr_att = params[:a]
   end
 
   # POST /skills or /skills.json

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :answer_choices
 
   get "/skills/:id/quiz", to: "skills#quiz", as: 'quiz_skill'
+  get "/skills/:id/quiz/done", to: "skills#submit_quiz", as: 'submit_quiz'
   post '/submit_answer', to: 'answers#submit', as: 'submit_answer'
   post '/submit_text_answer', to: 'answers#submit_text', as: 'submit_text_answer'
 
