@@ -1,9 +1,20 @@
-<h1>New question</h1>
+<h1>New Question</h1>
 
-<%= render "form", question: @question %>
+<%= select_tag :create_type, options_for_select({"Multiple Choice" =>
+"multiple_choice", "Interactive Graph" => "interactive_graph"}),
+{prompt: "Select an Option", onchange: "create_type_frame.src= `${location.href}?create_type=${this.value}`"}%>
+
+<%= turbo_frame_tag :create_type_frame do %>
+  <% if [params[:create_type].presence].compact.join('_') != "" %>
+    <%= render [params[:create_type].presence].compact.join('_'), question: @question%>
+  <% else %>
+    <%= render "multiple_choice", question: @question %>
+  <% end %>
+<% end %>
 
 <br>
 
 <div>
   <%= link_to "Back to questions", questions_path %>
 </div>
+

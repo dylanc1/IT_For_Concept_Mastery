@@ -7,14 +7,14 @@ User.create!(name:  "Example Dev Admin",
 
 User.create!(name:  "Example User Admin",
              email: "example2@ITFCM.org",
-             password:              "Foobar1!",
-             password_confirmation: "Foobar1!",
+             password:              "Foobar2!",
+             password_confirmation: "Foobar2!",
              admin: 3)
 
 User.create!(name:  "Example Manager Admin",
              email: "example3@ITFCM.org",
-             password:              "Foobar1!",
-             password_confirmation: "Foobar1!",
+             password:              "Foobar3!",
+             password_confirmation: "Foobar3!",
              admin: 2)
 
 # Generate a bunch of additional users.
@@ -22,7 +22,6 @@ User.create!(name:  "Example Manager Admin",
   name  = Faker::Name.first_name + " " + Faker::Name.last_name
   email = "example-#{n+1}@ITFCM.org"
   password = "Password1!"
-  puts name
   User.create!(name:  name,
                email: email,
                password:              password,
@@ -37,7 +36,7 @@ skill2 = Skill.create!(name: "Math review",
 
 skill3 = Skill.create!(name: "Miscellaneous",
               description: "Other")
-              
+
 question1 = Question.create!(content: "2 + 8 = ?",
                  correct_answer: "10")
 
@@ -46,10 +45,10 @@ question2 = Question.create!(content: "3 + 5 = ?",
 
 question3 = Question.create!(content: "8 * 9 = ?",
                  correct_answer: "72")
-                 
+
 question4 = Question.create!(content: "Alabama is the best",
                  correct_answer: "True")
-                 
+
 question1.answer_choices.create!(content: "5")
 question1.answer_choices.create!(content: "8")
 question1.answer_choices.create!(content: "10")

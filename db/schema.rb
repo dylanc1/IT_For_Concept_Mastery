@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_13_201021) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_16_173820) do
   create_table "answer_choices", force: :cascade do |t|
     t.text "content"
     t.integer "question_id", null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_13_201021) do
     t.text "correct_answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "question_type", default: "multiple_choice"
   end
 
   create_table "skills", force: :cascade do |t|

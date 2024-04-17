@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :skills
   resources :questions
   resources :answer_choices
-  
+
   get "/skills/:id/quiz", to: "skills#quiz", as: 'quiz_skill'
   post '/submit_answer', to: 'answers#submit', as: 'submit_answer'
 
@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   # assessments
 
   get 'assessments/study_activities'
+
+
   # resources :study_activities
   # get 'assessments/study_activities/:id' to 'study_activities#show'
 
