@@ -14,6 +14,16 @@ class AnswersController < ActionController::Base
     redirect_to request.referrer
   end
   
+  def submit_text
+    @question = Question.find_by(id:  params[:question_id])
+    if @question.correct_answer.downcase == params[:answer].downcase
+      flash[:success] = "Correct!"
+    else
+      flash[:danger] = "Incorrect :("
+    end
+    redirect_to request.referrer
+  end
+  
   private
   def answer_params
     params.require(:answer).permit(:content, :question_id)

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get "/skills/:id/quiz", to: "skills#quiz", as: 'quiz_skill'
   post '/submit_answer', to: 'answers#submit', as: 'submit_answer'
+  post '/submit_text_answer', to: 'answers#submit_text', as: 'submit_text_answer'
 
   # users
 

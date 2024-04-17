@@ -22,7 +22,14 @@ class SkillsController < ApplicationController
   # GET /skills/1/quiz
   def quiz
     set_skill
-    @curr_question = @skill.questions.first
+    all_questions = @skill.questions
+    if params[:q].nil?
+      @curr_id = 0
+    else
+      @curr_id = (params[:q].to_i + 1) % all_questions.length
+    end
+    @curr_question = all_questions[@curr_id]
+      
   end
 
   # POST /skills or /skills.json

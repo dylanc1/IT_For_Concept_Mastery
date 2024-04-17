@@ -49,6 +49,10 @@ question3 = Question.create!(content: "8 * 9 = ?",
 question4 = Question.create!(content: "Alabama is the best",
                  correct_answer: "True")
 
+question5 = Question.create!(content: "What is UA's most well known cheer?",
+                 correct_answer: "Roll Tide")
+
+
 question1.answer_choices.create!(content: "5")
 question1.answer_choices.create!(content: "8")
 question1.answer_choices.create!(content: "10")
@@ -69,4 +73,4 @@ question4.answer_choices.create!(content: "False")
 
 skill1.questions << [question1, question2]
 skill2.questions << [question1, question3]
-skill3.questions << [question4]
+skill3.questions << [question4, question5]
