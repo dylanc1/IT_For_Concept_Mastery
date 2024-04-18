@@ -3,10 +3,10 @@ class User < ApplicationRecord
 
   before_save { email.downcase! }
 
-  VALID_NAME_REGEX = /\A[a-zA-Z][\w\s'\-]*\z/
+  VALID_NAME_REGEX = /\A[a-zA-Z][a-zA-Z\s'\-]*\z/
   validates :name, presence: true, length: { maximum: 50, message: "cannot be more than 50 characters" },
             format: { with: VALID_NAME_REGEX,
-                      message: "must start with a letter and can only contain letters, numbers, spaces, underscores, dashes, and apostrophes" }
+                      message: "must start with a letter and can only contain letters, spaces, dashes, and apostrophes" }
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255, message: "cannot be over 255 characters" },

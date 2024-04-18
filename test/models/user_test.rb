@@ -32,7 +32,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "name validation should reject invalid names" do
-    invalid_names = %w[Iam>invalid I'mAlsoInvalid user/with/slashes user.with.periods 9startNumber _startUnderscore -startDash]
+    invalid_names = %w[Iam>invalid user/with/slashes user.with.periods 9startNumber _startUnderscore -startDash]
     invalid_names.each do |invalid_name|
       @user.name = invalid_name
       assert_not @user.valid?, "#{invalid_name.inspect} should be invalid"
