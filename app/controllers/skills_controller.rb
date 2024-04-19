@@ -28,7 +28,7 @@ class SkillsController < ApplicationController
       @curr_score = 0
       @curr_att = 0
     else
-      if params[:q].to_i == all_questions.length
+      if params[:q].to_i == all_questions.length || params[:c].to_i >= 5
         redirect_to submit_quiz_path(c: params[:c].to_i, a: params[:a].to_i)
         return
       end
@@ -42,6 +42,22 @@ class SkillsController < ApplicationController
   def submit_quiz
     @curr_score = params[:c]
     @curr_att = params[:a]
+    
+    if logged_in?
+      if current_user.skills.find_by(id: params[:id]).nil?
+        current_user.skills << [Skill.find(params[:id])]
+      end
+      
+      @user_skill = UserSkill.find_by(user_id: current_user.id, skill_id: params[:id])
+      
+      if @curr_score.to_f / @curr_att.to_f  > 0.8
+        @user_skill.status = 2
+      else
+        @user_skill.status = 1
+      end
+      
+      @user_skill.save
+    end
   end
 
   # POST /skills or /skills.json
@@ -90,6 +106,6 @@ class SkillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def skill_params
-      params.require(:skill).permit(:name, :description)
+      params.require(:skill).permit(:name, :description, question_ids: [])
     end
 end

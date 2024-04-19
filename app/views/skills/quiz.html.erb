@@ -1,3 +1,4 @@
+<% provide(:title, "Quiz") %>
 <p style="color: green"><%= notice %></p>
 <h1>Quiz:</h1>
 <p>Question <%= @curr_id + 1 %>: <%= @curr_question.content  %></p>
@@ -14,7 +15,11 @@
           </div>
         <% end %>
       </div>
-      <%= submit_tag "Submit", id: "submit-btn" %>
+      <% if @curr_att == @curr_id %>
+        <%= submit_tag "Submit", id: "submit-btn" %>
+      <% else %>
+        <%= submit_tag "Submit", id: "submit-btn", disabled: true %>
+      <% end %>
     <% end %>
 <% else %>
     <%= form_tag submit_text_answer_path(s_id: @skill.id, q: @curr_id, q_id: @curr_question.id, c: @curr_score, a: @curr_att), method: :post do %>
@@ -25,9 +30,15 @@
       <%= submit_tag "Submit", id: "submit-btn" %>
     <% end %>
 <% end %>
-<%= link_to '<button>Next Question</button>'.html_safe, quiz_skill_path(q: @curr_id + 1, c: @curr_score, a: @curr_att) %> <!--, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px'-->
+<% if @curr_att == @curr_id + 1 %>
+  <%= link_to '<button>Next Question</button>'.html_safe, quiz_skill_path(q: @curr_id + 1, c: @curr_score, a: @curr_att) %> <!--, class: 'btn btn-danger btn-xs pull-right', style:'margin-right: 600px; margin-top: -20px'-->
+<% end %>
 <!--%= render @skill %-->
 
 <div>
-  <%= link_to "Back to skill", skill_path %>
+  <% if logged_in? %>
+    <%= link_to "Back to dashboard", learning_dashboard_path %>
+  <% else %>
+    <%= link_to "Back to skill", skill_path %>
+  <% end %>
 </div>
