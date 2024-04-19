@@ -1,6 +1,6 @@
 <% provide(:title, "Quiz") %>
 <p style="color: green"><%= notice %></p>
-<h1>Quiz:</h1>
+<h1>Assessment: <%= @skill.name %></h1>
 <p>Question <%= @curr_id + 1 %>: <%= @curr_question.content  %></p>
 <% if @curr_att > 0 %>
   <p>Current Score: <%= @curr_score %> / <%= @curr_att %></p>
