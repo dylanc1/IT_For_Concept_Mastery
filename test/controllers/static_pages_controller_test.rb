@@ -13,7 +13,8 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "Help | IT For Concept Mastery"
   end
 
-  test "should get learning" do
+  test "should get learning if logged in" do
+    log_in_as(users(:michael))
     get learning_path
     assert_response :success
     assert_select "title", "Learning | IT For Concept Mastery"
