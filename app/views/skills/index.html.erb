@@ -5,18 +5,10 @@
 <div id="skills">
   <% @skills.each do |skill| %>
     <p>
-      <strong>Name:</strong>
-      <%= skill.name %>
-    </p>
-  
-    <p>
-      <strong>Description:</strong>
-      <%= skill.description %>
-    </p>
-    <p>
-      <%= link_to "Show this skill", skill %>
+      <strong><%= link_to skill.name, skill %></strong>: <%= skill.description %>
     </p>
   <% end %>
+  <p>
+    <%= link_to "New skill", new_skill_path %>
+  </p>
 </div>
-
-<%= link_to "New skill", new_skill_path %>

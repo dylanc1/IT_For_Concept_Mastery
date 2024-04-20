@@ -24,23 +24,19 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question = Question.create!(content: params[:question][:content],
                                  correct_answer: params[:question][:correct_answer])
-
-    respond_to do |format|
-      if @question.save
-        # Assign each answer choice to the question
-        params[:question][:answer_choices_attributes].each do |index, answer_choice_params|
-          content = answer_choice_params[:content]
-          next if content.blank?  # Skip if content is blank or nil
-
-          @question.answer_choices.create!(content: content)
-        end
-
-        format.html { redirect_to question_url(@question), notice: "Question was successfully created." }
-        format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+    
+    if @question.save
+      # Assign each answer choice to the question
+      params[:question][:answer_choices_attributes].each do |index, answer_choice_params|
+        content = answer_choice_params[:content]
+        next if content.blank?  # Skip if content is blank or nil
+        
+        @question.answer_choices.create!(content: content)
       end
+      flash[:success] = "Question was successfully created."
+      redirect_to question_url(@question)
+    else
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -50,12 +46,11 @@ class QuestionsController < ApplicationController
     if @question.present?
       @question.destroy
     end
-
-    respond_to do |format|
-      format.html { redirect_to questions_url, notice: "Question was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    
+    flash[:success] = "Question was successfully removed."
+    redirect_to questions_url
   end
+  
   private
     # Only allow a list of trusted parameters through.
     def question_params

@@ -63,39 +63,30 @@ class SkillsController < ApplicationController
   # POST /skills or /skills.json
   def create
     @skill = Skill.new(skill_params)
-
-    respond_to do |format|
-      if @skill.save
-        format.html { redirect_to skill_url(@skill), notice: "Skill was successfully created." }
-        format.json { render :show, status: :created, location: @skill }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @skill.errors, status: :unprocessable_entity }
-      end
+    
+    if @skill.save
+      flash[:success] = "Skill was successfully created."
+      redirect_to skill_url(@skill)
+    else
+      render 'new', status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /skills/1 or /skills/1.json
   def update
-    respond_to do |format|
-      if @skill.update(skill_params)
-        format.html { redirect_to skill_url(@skill), notice: "Skill was successfully updated." }
-        format.json { render :show, status: :ok, location: @skill }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @skill.errors, status: :unprocessable_entity }
-      end
+    if @skill.update(skill_params)
+      flash[:success] = "Skill was successfully updated."
+      redirect_to skill_url(@skill)
+    else
+      render 'new', status: :unprocessable_entity
     end
   end
 
   # DELETE /skills/1 or /skills/1.json
   def destroy
     @skill.destroy
-
-    respond_to do |format|
-      format.html { redirect_to skills_url, notice: "Skill was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    flash[:success] = "Skill was successfully removed."
+    redirect_to skills_url, status: :see_other
   end
 
   private

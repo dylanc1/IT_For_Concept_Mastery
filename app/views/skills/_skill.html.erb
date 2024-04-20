@@ -17,14 +17,8 @@
       <% skill.questions.each do |question| %>
         <li>
           <p>
-            Q:
-            <%= question.content %>
+            <%= link_to question.content, question %>
           </p>
-        
-          <p>
-            A: <%= question.correct_answer %>
-          </p>
-          <span class="hello"><%= link_to "View this question", question %></span>
         </li>
       <% end %>
     </ol>

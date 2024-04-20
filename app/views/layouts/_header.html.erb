@@ -24,7 +24,8 @@
                 <li><%= link_to "Learning", learning_dashboard_path %></li>
               <%if current_user.admin > 1 %>
                 <li class="divider"></li>
-                <li><%= link_to "Assessments", assessments_study_activities_url %></li>
+                <li><%= link_to "Questions", questions_path %></li>
+                <li><%= link_to "Skills", skills_path %></li>
               <% end %>
               <%if (current_user.admin % 5) == 0 %>
                 <li><%= link_to "Users", users_path %></li>
