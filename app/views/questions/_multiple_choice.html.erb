@@ -12,14 +12,18 @@
   <% end %>
 
   <div>
-    <%= form.label :content, "Multiple Choice Question Question", style: "display: block" %>
+    <%= form.label :content, "Multiple Choice Question", style: "display: block" %>
     <%= form.text_area :content, rows: 4 %>
   </div>
 
   <!-- should only put heading once and choose on option -->
   <%= form.fields_for :answer_choices do |answer_fields| %>
     <div class="field">
-      <%= answer_fields.label :content, "Answer Choices (Must have 0 or 2-5 answers choices.)" %>
+      <% index = answer_fields.index + 1 %>
+      <%= answer_fields.label :content, "Answer Choice ##{index}" %>
+      <% if index == 1 %>
+        <small>(must have 0 or 2-5 answer choices)</small>
+      <% end %>
       <%= answer_fields.text_field :content %>
     </div>
   <% end %>

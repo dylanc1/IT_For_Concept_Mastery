@@ -1,12 +1,16 @@
 <div class="question">
     <h3>Question:</h3>
     <p class="content"><%= question.content %></p>
-    <p class="option">Choices:</p>
-    <ul>
-        <% question.answer_choices.each do |answer_choice| %>
-            <li><%= answer_choice.content %> </li>
-        <% end %>
-    </ul>
+    <% if question.answer_choices.present? %>
+        <p class="option">Choices:</p>
+        <ul>
+          <% question.answer_choices.each do |answer_choice| %>
+            <li><%= answer_choice.content %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <em>No answer choices available for this question.</em>
+      <% end %>
     <div id="answer block" style.visibility = 'visible'>
          <p class="option">Answer: </p>
         <ul class="answer"><li><%= question.correct_answer %></li></ul>
