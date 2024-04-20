@@ -20,10 +20,15 @@
     <h4>Description</h4>
     <%= form.text_field :description %>
   </div>
-  
+
   <div>
     <h4>Questions</h4>
-    <%= form.collection_check_boxes :question_ids, Question.all, :id, :content %>
+    <%= form.collection_check_boxes :question_ids, Question.all, :id, :content do |c| %>
+      <div class="check-box">
+        <%= c.check_box %>
+        <%= c.label %>
+      </div>
+    <% end %>
   </div>
 
   <div>

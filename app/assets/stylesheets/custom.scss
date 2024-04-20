@@ -222,6 +222,23 @@ input {
   }
 }
 
+/* Check boxes */
+
+.check-box {
+  display: inline-block;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.check-box input[type="checkbox"] {
+  margin-left: 5px;
+  transform: scale(1.15);
+}
+
+
 /* MC Quiz */
 .score {
   text-align-last: right;
