@@ -23,7 +23,8 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question = Question.create!(content: params[:question][:content],
-                                 correct_answer: params[:question][:correct_answer])
+                                 correct_answer: params[:question][:correct_answer],
+                                 hint: params[:question][:hint])
     
     if @question.save
       # Assign each answer choice to the question
@@ -54,6 +55,6 @@ class QuestionsController < ApplicationController
   private
     # Only allow a list of trusted parameters through.
     def question_params
-      params.require(:question).permit(:question_type, :content, :correct_answer, answer_choices_attributes: [:id, :content, :question_id])
+      params.require(:question).permit(:question_type, :content, :correct_answer, :hint, answer_choices_attributes: [:id, :content, :question_id])
     end
 end

@@ -29,6 +29,11 @@
   <% end %>
 
   <div>
+    <%= form.label :hint, "Hint (optional)", style: "display: block" %>
+    <%= form.text_field :hint %>
+  </div>
+
+  <div>
     <%= form.label :correct_answer, "Correct Answer", style: "display: block" %>
     <%= form.text_field :correct_answer %>
   </div>
