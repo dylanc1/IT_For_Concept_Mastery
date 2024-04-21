@@ -7,10 +7,33 @@
 <div>
 
 <h3>Skills to Learn:</h3>
-<h4><a href="/learning/skills" target="_blank">Skill</a></h4>
-<br>
+<% Skill.all.each do |skill| %>
+  <% if UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).nil? %>
+    <%= link_to skill.name, quiz_skill_path(id: skill.id) %>
+    <br>
+  <% end %>
+<% end %>
+
+
+<h3>Skills In-Progress:</h3>
+<% current_user.skills.each do |skill| %>
+  <% if UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).nil? %>
+  <% elsif UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).status == 1 %>
+    <%= link_to skill.name, quiz_skill_path(id: skill.id) %>
+    <br>
+  <% end %>
+<% end %>
 
 <h3>Skills Mastered:</h3>
-<h4>No skills have been mastered so far.</h4>
+<% current_user.skills.each do |skill| %>
+  <% if UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).nil? %>
+  <% elsif UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).status == 2 %>
+    <%= link_to skill.name, quiz_skill_path(id: skill.id) %>
+    <br>
+  <% end %>
+<% end %>
+
+<!--<h4>No skills have been mastered so far.</h4>-->
+<!--<h4><a href="/learning/skills" target="_blank">Skill</a></h4>-->
 
 </div>

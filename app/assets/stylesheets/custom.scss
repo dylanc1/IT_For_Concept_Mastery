@@ -222,60 +222,47 @@ input {
   }
 }
 
-// radio-group{
-//   display: flex;
-//   flex-direction: column;
-//   text-align: left;
-//   choice {
-//     // display: block;
-//     margin-left: 10px;
-//     padding: 10px 0;
-//     width: auto;
-//   }
-// }
+/* Check boxes */
 
-// .choice input[type="radio"] {
-//   float: right;
-//   margin-right: 10px;
-//   text-align: helloooo;
-// }
-
-.radio-group {
-  // display: flex;
-  // flex-direction: column;
+.check-box {
+  display: inline-block;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
 }
 
-// .radio-group input[type="radio"] {
-//   // display: none; /* Hide default radio buttons */
-// }
+.check-box input[type="checkbox"] {
+  margin-left: 5px;
+  transform: scale(1.15);
+}
 
-// .radio-group label {
-//   display: inline-block;
-//   margin-bottom: 8px;
-//   cursor: pointer;
-//   position: relative;
-// }
 
-// .radio-group label:before {
-//   content: '';
-//   display: inline-block;
-//   width: 16px;
-//   height: 16px;
-//   border: 2px solid #ccc;
-//   border-radius: 50%;
-//   margin-right: 8px;
-// }
+/* MC Quiz */
+.score {
+  text-align-last: right;
+}
 
-// .radio-group input[type="radio"]:checked + label:before {
-//   background-color: #007bff; /* Change background color when checked */
-// }
+.radio-group {
+  display: inline-block;
+}
 
-// /* Add a dot inside the radio button when checked */
-// .radio-group input[type="radio"]:checked + label:before {
-//   content: '\2022';
-//   color: white;
-//   font-size: 20px;
-//   text-align: center;
-//   line-height: 16px;
-// }
+.radio-group .choice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
 
+.choice input[type="radio"],
+.choice label {
+  margin-right: 10px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+.choice input[type="radio"] {
+  margin-left: 5px;
+  transform: scale(1.25);
+}

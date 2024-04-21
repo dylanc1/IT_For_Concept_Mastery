@@ -1,4 +1,8 @@
 <p style="color: green"><%= notice %></p>
 <h1>Finished</h1>
 <p>You successfully completed <%=@curr_score %> out of <%= pluralize(@curr_att, "question") %></p>
-<%= link_to "Back to skill", skill_path %>
+<% if logged_in? %>
+  <%= link_to "Back to dashboard", learning_dashboard_path %>
+<% else %>
+  <%= link_to "Back to skill", skill_path %>
+<% end %>

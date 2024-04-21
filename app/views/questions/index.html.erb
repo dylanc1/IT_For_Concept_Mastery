@@ -3,33 +3,34 @@
 <h1>Questions</h1>
 
 <div id="questions">
+  <br/>
   <% @questions.each do |question| %>
     <p>
-      <strong>Question:</strong>
-      <%= question.content %>
+      <strong><%= question.content %></strong>
     </p>
 
     <p>
       <% if question.answer_choices.present? %>
-        <strong>Answer Choices:</strong>
         <ul>
           <% question.answer_choices.each do |answer_choice| %>
-            <li><%= answer_choice.content %></li>
+            <% if answer_choice.content == question.correct_answer %>
+              <li><strong><em style="color: green"><%= answer_choice.content %></em></strong></li>
+            <% else %>
+              <li><%= answer_choice.content %></li>
+            <% end %>
           <% end %>
         </ul>
       <% else %>
-        <em>No answer choices available for this question.</em>
+        <strong><em style="color: green"><%= question.correct_answer %></em></strong>
       <% end %>
-    </p>
-
-    <p>
-      <strong>Correct Answer:</strong>
-      <%= question.correct_answer %>
     </p>
     <p>
       <%= link_to "Show this question", question %>
     </p>
+    <br/>
   <% end %>
+  <br/>
 </div>
-
-<%= link_to "New question", new_question_path %>
+<p>
+  <%= link_to "New question", new_question_path %>
+</p>

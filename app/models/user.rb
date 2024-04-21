@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :user_skills, dependent: :destroy
+  has_many :skills, through: :user_skills
+  
   attr_accessor :remember_token
 
   before_save { email.downcase! }

@@ -12,13 +12,23 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <h4>Name</h4>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :description, style: "display: block" %>
+    <h4>Description</h4>
     <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <h4>Questions</h4>
+    <%= form.collection_check_boxes :question_ids, Question.all, :id, :content do |c| %>
+      <div class="check-box">
+        <%= c.check_box %>
+        <%= c.label %>
+      </div>
+    <% end %>
   </div>
 
   <div>
