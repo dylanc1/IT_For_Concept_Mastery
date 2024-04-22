@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :skills
   resources :questions
   resources :answer_choices
+  resources :chart_values
 
   get "/skills/:id/quiz", to: "skills#quiz", as: 'quiz_skill'
   get "/skills/:id/quiz/done", to: "skills#submit_quiz", as: 'submit_quiz'

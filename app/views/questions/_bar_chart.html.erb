@@ -10,17 +10,50 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= form.hidden_field :question_type, value: graph_type_placeholder %>
 
   <div>
-    <%= form.label :content, "Interactive Graph Question", style: "display: block" %>
+    <%= form.label :content, "Bar Chart Question", style: "display: block" %>
     <%= form.text_area :content, rows: 4 %>
   </div>
+  
+  <div>
+    <%= form.label :graph_content, "Chart Title", style: "display: block" %>
+    <%= form.text_area :graph_content%>
+  </div>
+  
+  <%= form.fields_for :chart_values do |chart_fields| %>
+    <div class="field">
+      <% index = chart_fields.index + 1 %>
+      <div class="row">
+          <div class="col-sm-6">
+ 			      <%= chart_fields.label :label, "Bar ##{index} Label" %>
+ 			    </div>
+ 			    <div class="col-sm-6">
+ 			      <%= chart_fields.label :height, "Bar ##{index} Height" %>
+ 			    </div>
+ 			</div>
+      <% if index == 1 %>
+      <% end %>
+      <div class="row">
+          <div class="col-sm-6">
+            <%= chart_fields.text_field :label %>
+ 			    </div>
+ 			    <div class="col-sm-6">
+            <%= chart_fields.text_field :height %>
+ 			    </div>
+ 			</div>
+    </div>
+  <% end %>
+  
   
   <html>
   <head>
   <script type="text/javascript">
 	
 		var chart = new CanvasJS.Chart("chartContainer", {
+		  animationEnabled: true,
 			title:{
 				text: "My First Chart in CanvasJS"              
 			},
@@ -29,11 +62,30 @@
 				// Change type to "doughnut", "line", "splineArea", etc.
 				type: "column",
 				dataPoints: [
-					{ label: "apple",  y: 10  },
-					{ label: "orange", y: 15  },
-					{ label: "banana", y: 25  },
-					{ label: "mango",  y: 30  },
-					{ label: "grape",  y: 28  }
+				  
+				  
+				  <% if !(question[:chart_values_attributes].nil?) %> 
+				    <% question[:chart_values_attributes].each do |index, point| %>
+              <% label = point[:label] %>
+              <% height = point[:height] %>
+              <% next if label.blank? %> 
+              <% next if height.blank? %>
+      		    <% index = chart_fields.index + 1 %>
+          		<% if index == 1 %>
+          			<%= "{ label: #{label} , y: #{height} }" %>
+          		<% else %>
+          			<%= ",\n{ label: #{label} , y: #{height} }" %>
+          		<% end %> 
+          	<% end %>
+    			<% else %>
+    				{ label: 10, y: 71 },
+    				{ label: 20, y: 55 },
+    				{ label: 30, y: 50 },
+    				{ label: 40, y: 65 },
+    				{ label: 50, y: 95 }
+    			<% end %>
+    			
+					
 				]
 			}
 			]

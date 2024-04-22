@@ -10,11 +10,42 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= form.hidden_field :question_type, value: graph_type_placeholder %>
 
   <div>
-    <%= form.label :content, "Interactive Graph Question", style: "display: block" %>
+    <%= form.label :content, "Draggable Bar Chart Question", style: "display: block" %>
     <%= form.text_area :content, rows: 4 %>
   </div>
+  
+  <div>
+    <%= form.label :graph_content, "Chart Title", style: "display: block" %>
+    <%= form.text_area :graph_content%>
+  </div>
+  
+ 	<%= form.fields_for :chart_values do |chart_fields| %>
+    <div class="field">
+      <% index = chart_fields.index + 1 %>
+      <div class="row">
+          <div class="col-sm-6">
+ 			      <%= chart_fields.label :label, "Bar ##{index} Label" %>
+ 			    </div>
+ 			    <div class="col-sm-6">
+ 			      <%= chart_fields.label :height, "Bar ##{index} Height" %>
+ 			    </div>
+ 			</div>
+      <% if index == 1 %>
+      <% end %>
+      <div class="row">
+          <div class="col-sm-6">
+            <%= chart_fields.text_field :label %>
+ 			    </div>
+ 			    <div class="col-sm-6">
+            <%= chart_fields.text_field :height %>
+ 			    </div>
+ 			</div>
+    </div>
+  <% end %>
   
   <html>
 <head>
@@ -22,25 +53,38 @@
 
 	var chart = new CanvasJS.Chart("chartContainer", {       
 	animationEnabled: true,
+	theme: "light2",
 	title: {
 		text: "Try Dragging Any Column to Resize"
 	},
 	axisX:{
 		minimum: 5,
-		maximum: 95
+		maximum: 55
 	},
 	data: [{
 		type: "column",
 		dataPoints: [
-			{ x: 10, y: 71 },
-			{ x: 20, y: 55 },
-			{ x: 30, y: 50 },
-			{ x: 40, y: 65 },
-			{ x: 50, y: 95 },
-			{ x: 60, y: 68 },
-			{ x: 70, y: 28 },
-			{ x: 80, y: 34 },
-			{ x: 90, y: 14 }
+			
+			<% if !(question[:chart_values_attributes].nil?) %> 
+				<% question[:chart_values_attributes].each do |index, point| %>
+          <% label = point[:label] %>
+          <% height = point[:height] %>
+          <% next if label.blank? %> 
+          <% next if height.blank? %>
+      		<% index = chart_fields.index + 1 %>
+      		<% if index == 1 %>
+      			<%= "{ x: #{label} , y: #{height} }" %>
+      		<% else %>
+      			<%= ",\n{ x: #{label} , y: #{height} }" %>
+      		<% end %> 
+      	<% end %>
+			<% else %>
+				<%= "{ x: 10, y: 71 }," %>
+				<%= "{ x: 20, y: 55 }," %>
+				<%= "{ x: 30, y: 50 }," %>
+				<%= "{ x: 40, y: 65 }," %>
+				<%= "{ x: 50, y: 95 }" %>
+			<% end %>
 		]
 	}]
 });
@@ -125,20 +169,25 @@ jQuery("#chartContainer > .canvasjs-chart-container").on({
 <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 </body>
 </html>
+	</div>
 
   <!-- should only put heading once and choose on option -->
   <%= form.fields_for :answer_choices do |answer_fields| %>
     <div class="field">
-      <%= answer_fields.label :content, "Answer Choices (Must have 0 or 2-5 answers choices.)" %>
+      <% index = answer_fields.index + 1 %>
+      <%= answer_fields.label :content, "Answer Choice ##{index}" %>
+      <% if index == 1 %>
+        <small>(must have 0 or 2-5 answer choices)</small>
+      <% end %>
       <%= answer_fields.text_field :content %>
     </div>
   <% end %>
-
+  
   <div>
     <%= form.label :correct_answer, "Correct Answer", style: "display: block" %>
     <%= form.text_field :correct_answer %>
   </div>
-
+  
   <div>
     <%= form.submit %>
   </div>

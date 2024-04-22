@@ -6,9 +6,12 @@
 
 <%= turbo_frame_tag :create_type_frame do %>
   <% if [params[:create_type].presence].compact.join('_') != "" %>
-    <%= render [params[:create_type].presence].compact.join('_'), question: @question%>
+    <%= render :partial => [params[:create_type].presence].compact.join('_'),
+    :locals => {:question => @question,
+    :graph_type_placeholder => [params[:create_type].presence].compact.join('_')} %>
   <% else %>
-    <%= render "multiple_choice", question: @question %>
+    <%= render :partial => "multiple_choice",
+    :locals => {:question => @question, :graph_type_placeholder => "multiple_choice"} %>
   <% end %>
 <% end %>
 

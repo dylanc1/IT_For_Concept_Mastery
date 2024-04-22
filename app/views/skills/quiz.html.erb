@@ -10,6 +10,11 @@
 </div>
 <p>Question <%= @curr_id + 1 %>: <%= @curr_question.content  %></p>
 <% if @curr_question.answer_choices.count > 0 %>
+    
+    <% question_type_partial = @curr_question.question_type %>
+    <%= render partial: question_type_partial,
+    locals: {question: @curr_question} %>
+    
     <%= form_tag submit_answer_path(s_id: @skill.id, q: @curr_id, c: @curr_score, a: @curr_att), method: :post do %>
       <div class="radio-group">
         <% @curr_question.answer_choices.each do |option| %>

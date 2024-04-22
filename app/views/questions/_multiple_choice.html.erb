@@ -10,6 +10,8 @@
       </ul>
     </div>
   <% end %>
+  
+  <%= form.hidden_field :question_type, value: graph_type_placeholder %>
 
   <div>
     <%= form.label :content, "Multiple Choice Question", style: "display: block" %>
