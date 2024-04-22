@@ -13,6 +13,7 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     5.times { @question.answer_choices.build }
+    5.times { @question.chart_values.build }
   end
 
   # GET /questions/1/edit
@@ -23,7 +24,9 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question = Question.create!(content: params[:question][:content],
-                                 correct_answer: params[:question][:correct_answer],
+                                 correct_answer: params[:question][:correct_answer], 
+                                 question_type: params[:question][:question_type], 
+                                 graph_content: params[:question][:graph_content],
                                  hint: params[:question][:hint])
     
     if @question.save
@@ -34,6 +37,20 @@ class QuestionsController < ApplicationController
         
         @question.answer_choices.create!(content: content)
       end
+      
+      # check if any values for chart
+      if !(params[:question][:chart_values_attributes].nil?)
+        # assign if so
+        params[:question][:chart_values_attributes].each do |index, chart_value_params|
+          label = chart_value_params[:label]
+          height = chart_value_params[:height]
+          next if label.blank?  # Skip if content is blank or nil
+          next if height.blank?  # Skip if content is blank or nil
+          
+          @question.chart_values.create!(label: label, height: height)
+        end
+      end
+      
       flash[:success] = "Question was successfully created."
       redirect_to question_url(@question)
     else
@@ -55,6 +72,13 @@ class QuestionsController < ApplicationController
   private
     # Only allow a list of trusted parameters through.
     def question_params
+<<<<<<< HEAD
       params.require(:question).permit(:question_type, :content, :correct_answer, :hint, answer_choices_attributes: [:id, :content, :question_id])
+=======
+      params.require(:question).permit(:question_type, :graph_content, 
+      :content, :graph_content, :correct_answer, 
+      answer_choices_attributes: [:id, :content, :question_id],
+      chart_values_attributes: [:id, :label, :height, :question_id])
+>>>>>>> interactive_questions
     end
 end

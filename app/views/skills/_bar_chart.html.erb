@@ -1,0 +1,45 @@
+<html>
+<head>
+<script type="text/javascript">
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light1",
+	title: {
+	    
+	    text: "<%= question.graph_content %>"
+		
+	},
+	axisX: {
+		title: "Countries"
+	},
+	data: [{
+		type: "column",
+		dataPoints: [
+			
+			<% if !(question.chart_values.nil?) %> 
+				<% question.chart_values.each_with_index do |point, index| %>
+          <% label = point.label %>
+          <% height = point.height %>
+          <% next if label.blank? %> 
+          <% next if height.blank? %>
+      		<% index = index + 1 %>
+      		<% if index != question.chart_values.count %>
+      			{ label: "<%= label %>" , y: <%= height %> },
+      		<% else %>
+      			{ label: "<%= label %>" , y: <%= height %> }
+      		<% end %> 
+      	<% end %>
+			<% end %>
+			
+		]
+	}]
+});
+chart.render();
+
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>

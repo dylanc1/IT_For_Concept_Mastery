@@ -38,7 +38,7 @@ skill3 = Skill.create!(name: "Miscellaneous",
               description: "Other")
 
 question1 = Question.create!(content: "2 + 8 = ?",
-                 correct_answer: "10")
+                 correct_answer: "10", question_type: "bar_chart")
 
 question2 = Question.create!(content: "3 + 5 = ?",
                  correct_answer: "8")

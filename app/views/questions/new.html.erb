@@ -1,14 +1,18 @@
 <h1>New Question</h1>
 
 <%= select_tag :create_type, options_for_select({"Multiple Choice" =>
-"multiple_choice", "Interactive Graph" => "interactive_graph"}),
+"multiple_choice", "Draggable Bar Chart" => "draggable_bar_chart", "Bar Chart" => "bar_chart"}),
 {prompt: "Select an Option", onchange: "create_type_frame.src= `${location.href}?create_type=${this.value}`"}%>
 
 <%= turbo_frame_tag :create_type_frame do %>
-  <% if [params[:create_type].presence].compact.join('_') != "" %>
-    <%= render [params[:create_type].presence].compact.join('_'), question: @question%>
+  <% if [params[:create_type].presence].compact.join('_') != "" &&
+  [params[:create_type].presence].compact.join('_') != "multiple_choice" %>
+    <%= render :partial => "interactive",
+    :locals => {:question => @question,
+    :graph_type_placeholder => [params[:create_type].presence].compact.join('_')} %>
   <% else %>
-    <%= render "multiple_choice", question: @question %>
+    <%= render :partial => "multiple_choice",
+    :locals => {:question => @question, :graph_type_placeholder => "multiple_choice"} %>
   <% end %>
 <% end %>
 

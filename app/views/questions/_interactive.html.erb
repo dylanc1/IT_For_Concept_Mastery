@@ -12,12 +12,43 @@
   <% end %>
   
   <%= form.hidden_field :question_type, value: graph_type_placeholder %>
-  <%= form.hidden_field :graph_content, value: "Placeholder Title" %>
 
   <div>
-    <%= form.label :content, "Multiple Choice Question", style: "display: block" %>
+    <%= form.label :content, "Question", style: "display: block" %>
     <%= form.text_area :content, rows: 4 %>
   </div>
+  
+  <div>
+    <%= form.label :graph_content, "Chart Title", style: "display: block" %>
+    <%= form.text_area :graph_content%>
+  </div>
+  
+ 	<%= form.fields_for :chart_values do |chart_fields| %>
+    <div class="field">
+      <% index = chart_fields.index + 1 %>
+      <div class="row">
+          <div class="col-sm-6">
+ 			      <%= chart_fields.label :label, "Bar ##{index} Label" %>
+ 			    </div>
+ 			    <div class="col-sm-6">
+ 			      <%= chart_fields.label :height, "Bar ##{index} Height" %>
+ 			    </div>
+ 			</div>
+      <% if index == 1 %>
+      <% end %>
+      <div class="row">
+          <div class="col-sm-6">
+            <%= chart_fields.text_field :label %>
+ 			    </div>
+ 			    <div class="col-sm-6">
+            <%= chart_fields.text_field :height %>
+ 			    </div>
+ 			</div>
+    </div>
+  <% end %>
+  
+<%= render partial: "skills/#{graph_type_placeholder}",
+locals: {question: @question} %>
 
   <!-- should only put heading once and choose on option -->
   <%= form.fields_for :answer_choices do |answer_fields| %>
@@ -30,16 +61,12 @@
       <%= answer_fields.text_field :content %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :hint, "Hint (optional)", style: "display: block" %>
-    <%= form.text_field :hint %>
-  </div>
-
+  
   <div>
     <%= form.label :correct_answer, "Correct Answer", style: "display: block" %>
     <%= form.text_field :correct_answer %>
   </div>
+  
   
   <div>
     <%= form.submit %>
