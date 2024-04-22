@@ -5,8 +5,9 @@
 {prompt: "Select an Option", onchange: "create_type_frame.src= `${location.href}?create_type=${this.value}`"}%>
 
 <%= turbo_frame_tag :create_type_frame do %>
-  <% if [params[:create_type].presence].compact.join('_') != "" %>
-    <%= render :partial => [params[:create_type].presence].compact.join('_'),
+  <% if [params[:create_type].presence].compact.join('_') != "" &&
+  [params[:create_type].presence].compact.join('_') != "multiple_choice" %>
+    <%= render :partial => "interactive",
     :locals => {:question => @question,
     :graph_type_placeholder => [params[:create_type].presence].compact.join('_')} %>
   <% else %>

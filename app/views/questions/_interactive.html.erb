@@ -14,7 +14,7 @@
   <%= form.hidden_field :question_type, value: graph_type_placeholder %>
 
   <div>
-    <%= form.label :content, "Bar Chart Question", style: "display: block" %>
+    <%= form.label :content, "Question", style: "display: block" %>
     <%= form.text_area :content, rows: 4 %>
   </div>
   
@@ -23,7 +23,7 @@
     <%= form.text_area :graph_content%>
   </div>
   
-  <%= form.fields_for :chart_values do |chart_fields| %>
+ 	<%= form.fields_for :chart_values do |chart_fields| %>
     <div class="field">
       <% index = chart_fields.index + 1 %>
       <div class="row">
@@ -47,71 +47,27 @@
     </div>
   <% end %>
   
-  
-  <html>
-  <head>
-  <script type="text/javascript">
-	
-		var chart = new CanvasJS.Chart("chartContainer", {
-		  animationEnabled: true,
-			title:{
-				text: "My First Chart in CanvasJS"              
-			},
-			data: [              
-			{
-				// Change type to "doughnut", "line", "splineArea", etc.
-				type: "column",
-				dataPoints: [
-				  
-				  
-				  <% if !(question[:chart_values_attributes].nil?) %> 
-				    <% question[:chart_values_attributes].each do |index, point| %>
-              <% label = point[:label] %>
-              <% height = point[:height] %>
-              <% next if label.blank? %> 
-              <% next if height.blank? %>
-      		    <% index = chart_fields.index + 1 %>
-          		<% if index == 1 %>
-          			<%= "{ label: #{label} , y: #{height} }" %>
-          		<% else %>
-          			<%= ",\n{ label: #{label} , y: #{height} }" %>
-          		<% end %> 
-          	<% end %>
-    			<% else %>
-    				{ label: 10, y: 71 },
-    				{ label: 20, y: 55 },
-    				{ label: 30, y: 50 },
-    				{ label: 40, y: 65 },
-    				{ label: 50, y: 95 }
-    			<% end %>
-    			
-					
-				]
-			}
-			]
-		});
-		
-		chart.render();
-	</script>
-	</head>
-	<body>
-	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
-	</body>
-	</html>
+<%= render partial: "skills/#{graph_type_placeholder}",
+locals: {question: @question} %>
 
   <!-- should only put heading once and choose on option -->
   <%= form.fields_for :answer_choices do |answer_fields| %>
     <div class="field">
-      <%= answer_fields.label :content, "Answer Choices (Must have 0 or 2-5 answers choices.)" %>
+      <% index = answer_fields.index + 1 %>
+      <%= answer_fields.label :content, "Answer Choice ##{index}" %>
+      <% if index == 1 %>
+        <small>(must have 0 or 2-5 answer choices)</small>
+      <% end %>
       <%= answer_fields.text_field :content %>
     </div>
   <% end %>
-
+  
   <div>
     <%= form.label :correct_answer, "Correct Answer", style: "display: block" %>
     <%= form.text_field :correct_answer %>
   </div>
-
+  
+  
   <div>
     <%= form.submit %>
   </div>
