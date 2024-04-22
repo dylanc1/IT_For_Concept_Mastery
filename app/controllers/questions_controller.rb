@@ -72,13 +72,9 @@ class QuestionsController < ApplicationController
   private
     # Only allow a list of trusted parameters through.
     def question_params
-<<<<<<< HEAD
-      params.require(:question).permit(:question_type, :content, :correct_answer, :hint, answer_choices_attributes: [:id, :content, :question_id])
-=======
       params.require(:question).permit(:question_type, :graph_content, 
-      :content, :graph_content, :correct_answer, 
+      :content, :correct_answer, :hint, 
       answer_choices_attributes: [:id, :content, :question_id],
       chart_values_attributes: [:id, :label, :height, :question_id])
->>>>>>> interactive_questions
     end
 end
