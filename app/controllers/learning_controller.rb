@@ -11,12 +11,12 @@ class LearningController < ApplicationController
   end
   
   def draggable
-    @yvals = [70, 24, 56]
+    @yvals = [70, 24, 56, 26]
   end
   
   def update
     if @yvals.nil?
-      @yvals = [70, 24, 56]
+      @yvals = [70, 24, 56, 26]
     end
     if !params[:yval].nil? and !params[:i].nil?
       @yvals[params[:i].to_i] = params[:yval].to_i

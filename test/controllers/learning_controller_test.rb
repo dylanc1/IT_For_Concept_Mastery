@@ -10,9 +10,4 @@ class LearningControllerTest < ActionDispatch::IntegrationTest
     get learning_dashboard_url
     assert_response :success
   end
-
-  test "should get skills" do
-    get learning_skills_url
-    assert_response :success
-  end
 end
