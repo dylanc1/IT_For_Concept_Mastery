@@ -4,34 +4,54 @@
 <h2>Learn new skills and view your learning progress here.</h2>
 </div>
 
-<div>
+<div class="skill-categories">
 
-<h3>Skills to Learn:</h3>
-<% Skill.all.each do |skill| %>
-  <% if UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).nil? %>
-    <%= link_to skill.name, quiz_skill_path(id: skill.id) %>
-    <br>
-  <% end %>
-<% end %>
+<div class="skill-category tolearn">
+  <h3>Skills to Learn</h3>
+  <div class="skill-container">
+    <% Skill.all.each do |skill| %>
+      <% if UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).nil? %>
+        <%= link_to quiz_skill_path(id: skill.id), class: "skill-link" do %>
+          <div class="skill-card">
+            <%= skill.name %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
+<div class="skill-category inprogress">
+  <h3>Skills In-Progress</h3>
+  <div class="skill-container">
+    <% current_user.skills.each do |skill| %>
+      <% user_skill = UserSkill.find_by(user_id: current_user.id, skill_id: skill.id) %>
+      <% if user_skill && user_skill.status == 1 %>
+        <%= link_to quiz_skill_path(id: skill.id), class: "skill-link" do %>
+          <div class="skill-card">
+            <%= skill.name %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
-<h3>Skills In-Progress:</h3>
-<% current_user.skills.each do |skill| %>
-  <% if UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).nil? %>
-  <% elsif UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).status == 1 %>
-    <%= link_to skill.name, quiz_skill_path(id: skill.id) %>
-    <br>
-  <% end %>
-<% end %>
-
-<h3>Skills Mastered:</h3>
-<% current_user.skills.each do |skill| %>
-  <% if UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).nil? %>
-  <% elsif UserSkill.find_by(user_id: current_user.id, skill_id: skill.id).status == 2 %>
-    <%= link_to skill.name, quiz_skill_path(id: skill.id) %>
-    <br>
-  <% end %>
-<% end %>
+<div class="skill-category mastered">
+  <h3>Skills Mastered</h3>
+  <div class="skill-container">
+    <% current_user.skills.each do |skill| %>
+      <% user_skill = UserSkill.find_by(user_id: current_user.id, skill_id: skill.id) %>
+      <% if user_skill && user_skill.status == 2 %>
+        <%= link_to quiz_skill_path(id: skill.id), class: "skill-link" do %>
+          <div class="skill-card">
+            <%= skill.name %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
 <!--<h4>No skills have been mastered so far.</h4>-->
 <!--<h4><a href="/learning/skills" target="_blank">Skill</a></h4>-->

@@ -266,3 +266,84 @@ input {
   margin-left: 5px;
   transform: scale(1.25);
 }
+
+/* Learning Dashboard */
+
+.skill-categories {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+}
+
+.skill-category {
+  flex: 1;
+  max-width: calc(33.333% - 20px);
+
+  border-radius: 15px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.skill-category h3 {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.tolearn {
+  background-color: #e8e8e8;
+}
+
+.inprogress {
+  background-color: #9ef0ac;
+}
+
+.mastered {
+  background-color: #87bee8;
+}
+
+.skill-container {
+  display: flex;
+  //flex-wrap: wrap;
+  //gap: 20px;
+  //margin-top: 20px;
+  //width: 100%;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skill-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  flex: 1;
+  //width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  //transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.skill-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+.skill-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+// Vertical formatting for mobile
+@media (max-width: 768px) {
+  .skill-categories {
+    flex-direction: column;
+  }
+
+  .skill-category {
+    max-width: 100%;
+  }
+}
