@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     5.times { @question.answer_choices.build }
-    5.times { @question.chart_values.build }
+    6.times { @question.chart_values.build }
   end
 
   # GET /questions/1/edit
