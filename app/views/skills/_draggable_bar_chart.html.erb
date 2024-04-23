@@ -1,5 +1,10 @@
-<html>
-<head>
+<% y_min = question.chart_values[question.chart_values.count - 1].label %>
+<% y_max = question.chart_values[question.chart_values.count - 1].height %>
+<% y_present = !(y_min.blank?) || !(y_max.nil?) %>
+<% currY ||= [] %>
+
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
 <script type="text/javascript">
 
 	var chart = new CanvasJS.Chart("chartContainer", {       
@@ -8,28 +13,33 @@
 	title: {
 		text: "<%= question.graph_content %>"
 	},
-	axisX:{
-		minimum: 5,
-		maximum: 55
-	},
+	
+	<% if y_present %>
+		axisY:{
+		<%= !(y_min.blank?) ? ("minimum:  #{y_min} " + (!(y_max.nil?) ?
+		", maximum: #{y_max}" : " ")) : (!(y_max.nil?) ?
+		"maximum: #{y_max}" : " ") %>
+		}, 
+	<% end %>
+	
 	data: [{
 		type: "column",
 		dataPoints: [
-		  
-		  <% if !(question.chart_values.nil?) %> 
-				<% question.chart_values.each_with_index do |point, index| %>
-          <% label = point.label %>
-          <% height = point.height %>
-          <% next if label.blank? %> 
-          <% next if height.blank? %>
-      		<% index = index + 1 %>
-      		<% if index != question.chart_values.count %>
-      			{ x: "<%= label %>" , y: <%= height %> },
-      		<% else %>
-      			{ x: "<%= label %>" , y: <%= height %> }
-      		<% end %> 
-      	<% end %>
-			<% end %>
+			
+			<% question.chart_values.each_with_index do |point, index| %>
+		        <% label = point.label %>
+		        <% height = point.height %>
+		        <% next if label.blank? %> 
+		        <% next if height.nil? %>
+		        <% currY[index] = height %>
+	    		<% index = index + 1 %>
+	    		<% if index < (question.chart_values.count - 1) %>
+	    			{ label: "<%= label %>" , y: <%= height %> },
+	    		<% elsif index == (question.chart_values.count - 1) %>
+	    			{ label: "<%= label %>" , y: <%= height %> }
+	    		<% end %> 
+    		<% end %>
+    	
 		]
 	}]
 });
@@ -102,6 +112,7 @@ jQuery("#chartContainer > .canvasjs-chart-container").on({
 	mouseup: function(e) {
 		if(selected != null) {
 			chart.data[0].dataPoints[selected].y = yValue;
+			<%  %>
 			chart.render();
 			mouseDown = false;
 		}
@@ -109,8 +120,4 @@ jQuery("#chartContainer > .canvasjs-chart-container").on({
 });
 	
 </script>
-</head>
-<body>
-<div id="chartContainer" style="height: 300px; width: 100%;"></div>
 </body>
-</html>
