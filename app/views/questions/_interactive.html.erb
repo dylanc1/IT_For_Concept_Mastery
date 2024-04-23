@@ -10,19 +10,19 @@
       </ul>
     </div>
   <% end %>
-  
+
   <%= form.hidden_field :question_type, value: graph_type_placeholder %>
 
   <div>
     <%= form.label :content, "Question", style: "display: block" %>
     <%= form.text_area :content, rows: 4 %>
   </div>
-  
+
   <div>
     <%= form.label :graph_content, "Chart Title", style: "display: block" %>
     <%= form.text_area :graph_content%>
   </div>
-  
+
  	<%= form.fields_for :chart_values do |chart_fields| %>
     <div class="field">
       <% index = chart_fields.index + 1 %>
@@ -46,9 +46,9 @@
  			</div>
     </div>
   <% end %>
-  
-<%= render partial: "skills/#{graph_type_placeholder}",
-locals: {question: @question} %>
+
+  <%= render partial: "skills/#{graph_type_placeholder}",
+  locals: {question: @question} %>
 
   <!-- should only put heading once and choose on option -->
   <%= form.fields_for :answer_choices do |answer_fields| %>
@@ -61,14 +61,14 @@ locals: {question: @question} %>
       <%= answer_fields.text_field :content %>
     </div>
   <% end %>
-  
+
   <div>
     <%= form.label :correct_answer, "Correct Answer", style: "display: block" %>
     <%= form.text_field :correct_answer %>
   </div>
-  
-  
+
+
   <div>
-    <%= form.submit %>
+    <%= form.submit "Create Question", name: "create_question", class: "btn btn-primary" %>
   </div>
 <% end %>

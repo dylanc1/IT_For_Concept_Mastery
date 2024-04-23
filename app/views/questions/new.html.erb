@@ -1,7 +1,8 @@
 <h1>New Question</h1>
 
 <%= select_tag :create_type, options_for_select({"Multiple Choice" =>
-"multiple_choice", "Draggable Bar Chart" => "draggable_bar_chart", "Bar Chart" => "bar_chart"}),
+"multiple_choice", "Draggable Bar Chart" => "draggable_bar_chart", "Bar Chart" => "bar_chart",
+  "Line Chart" => "line_chart"}),
 {prompt: "Select an Option", onchange: "create_type_frame.src= `${location.href}?create_type=${this.value}`"}%>
 
 <%= turbo_frame_tag :create_type_frame do %>

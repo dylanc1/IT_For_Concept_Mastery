@@ -4,17 +4,19 @@
 
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
-	theme: "light1",
-	title: {
-
-	    text: "<%= question.graph_content %>"
-
+	theme: "light2",
+	title:{
+		text: "<%= question.graph_content %>"
 	},
 	axisX: {
-		title: "Countries"
+	  title: "X Axis"
+	},
+	axisY: {
+	  title: "Y Axis"
 	},
 	data: [{
-		type: "column",
+		type: "line",
+    color: "#F08080",
 		dataPoints: [
 
 			<% if !(question.chart_values.nil?) %>
@@ -24,10 +26,11 @@ var chart = new CanvasJS.Chart("chartContainer", {
           <% next if label.blank? %>
           <% next if height.blank? %>
       		<% index = index + 1 %>
+
       		<% if index != question.chart_values.count %>
-      			{ label: "<%= label %>" , y: <%= height %> },
+      			{ x: <%= label %> , y: <%= height %> },
       		<% else %>
-      			{ label: "<%= label %>" , y: <%= height %> }
+      			{ x: <%= label %> , y: <%= height %> }
       		<% end %>
       	<% end %>
 			<% end %>
