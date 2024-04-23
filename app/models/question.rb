@@ -7,7 +7,7 @@ class Question < ApplicationRecord
     accepts_nested_attributes_for :answer_choices
     accepts_nested_attributes_for :chart_values
 
-    validates :content, presence: true, length: {maximum: 140}
+    validates :content, presence: true, length: {maximum: 420}
     validates :correct_answer, presence: true, length: {maximum: 140}
     validates :question_type, presence: true
     validates :graph_content, presence: true
