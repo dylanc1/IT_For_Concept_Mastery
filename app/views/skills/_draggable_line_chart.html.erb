@@ -1,0 +1,121 @@
+<html>
+<head>
+<script type="text/javascript">
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "<%= question.graph_content %>"
+	},
+	axisX: {
+	  title: "X Axis"
+	},
+	axisY: {
+	  title: "Y Axis"
+	},
+	data: [{
+		type: "line",
+    color: "#F08080",
+		dataPoints: [
+
+			<% if !(question.chart_values.nil?) %>
+				<% question.chart_values.each_with_index do |point, index| %>
+          <% label = point.label %>
+          <% height = point.height %>
+          <% next if label.blank? %>
+          <% next if height.blank? %>
+      		<% index = index + 1 %>
+
+      		<% if index != question.chart_values.count %>
+      			{ x: <%= label %> , y: <%= height %> },
+      		<% else %>
+      			{ x: <%= label %> , y: <%= height %> }
+      		<% end %>
+      	<% end %>
+			<% end %>
+
+		]
+	}]
+});
+chart.render();
+
+var xSnapDistance = .00001;
+var ySnapDistance = .00001;
+
+var xValue, yValue;
+
+var mouseDown = false;
+var selected = null;
+var changeCursor = false;
+
+var timerId = null;
+
+function getPosition(e) {
+	var parentOffset = $("#chartContainer > .canvasjs-chart-container").offset();
+	var relX = e.pageX - parentOffset.left;
+	var relY = e.pageY - parentOffset.top;
+	xValue = Math.round(chart.axisX[0].convertPixelToValue(relX));
+	yValue = Math.round(chart.axisY[0].convertPixelToValue(relY));
+}
+
+function searchDataPoint() {
+	var dps = chart.data[0].dataPoints;
+	for(var i = 0; i < dps.length; i++ ) {
+		if( (xValue >= dps[i].x - xSnapDistance && xValue <= dps[i].x + xSnapDistance) && (yValue >= dps[i].y - ySnapDistance && yValue <= dps[i].y + ySnapDistance) )
+		{
+			if(mouseDown) {
+				selected = i;
+				break;
+			} else {
+				changeCursor = true;
+				break;
+			}
+		} else {
+			selected = null;
+			changeCursor = false;
+		}
+	}
+}
+
+jQuery("#chartContainer > .canvasjs-chart-container").on({
+	mousedown: function(e) {
+		mouseDown = true;
+		getPosition(e);
+		searchDataPoint();
+	},
+	mousemove: function(e) {
+		getPosition(e);
+		if(mouseDown) {
+			clearTimeout(timerId);
+			timerId = setTimeout(function(){
+				if(selected != null) {
+					chart.data[0].dataPoints[selected].y = yValue;
+					chart.render();
+				}
+			}, 0);
+		}
+		else {
+			searchDataPoint();
+			if(changeCursor) {
+				chart.data[0].set("cursor", "n-resize");
+			} else {
+				chart.data[0].set("cursor", "default");
+			}
+		}
+	},
+	mouseup: function(e) {
+		if(selected != null) {
+			chart.data[0].dataPoints[selected].y = yValue;
+			chart.render();
+			mouseDown = false;
+		}
+	}
+});
+
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>
