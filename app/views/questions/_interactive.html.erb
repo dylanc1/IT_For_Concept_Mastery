@@ -26,48 +26,50 @@
  	<%= form.fields_for :chart_values do |chart_fields| %>
     <div class="field">
       <% index = chart_fields.index + 1 %>
-      <div class="row">
-          <div class="col-sm-6">
- 			      <%= chart_fields.label :label, "Bar ##{index} Label" %>
- 			    </div>
- 			    <div class="col-sm-6">
- 			      <%= chart_fields.label :height, "Bar ##{index} Height" %>
- 			    </div>
- 			</div>
-      <% if index == 1 %>
-      <% end %>
-      <div class="row">
-          <div class="col-sm-6">
-            <%= chart_fields.text_field :label %>
- 			    </div>
- 			    <div class="col-sm-6">
-            <%= chart_fields.text_field :height %>
- 			    </div>
- 			</div>
-    </div>
+      <% if index < 6 %>
+        <div class="row">
+            <div class="col-sm-6">
+   			      <%= chart_fields.label :label, "Bar ##{index} Label" %>
+   			    </div>
+   			    <div class="col-sm-6">
+   			      <%= chart_fields.label :height, "Bar ##{index} Height" %>
+   			    </div>
+   			</div>
+        <% if index == 1 %>
+        <% end %>
+        <div class="row">
+            <div class="col-sm-6">
+              <%= chart_fields.text_field :label %>
+   			    </div>
+   			    <div class="col-sm-6">
+              <%= chart_fields.text_field :height %>
+   			    </div>
+   			</div>
+      </div>
+    <% else %>
+    <div class="row">
+            <div class="col-sm-6">
+   			      <%= chart_fields.label :label, "Minimum Height" %>
+   			    </div>
+   			    <div class="col-sm-6">
+   			      <%= chart_fields.label :height, "Maximum Height" %>
+   			    </div>
+   			</div>
+        <% if index == 1 %>
+        <% end %>
+        <div class="row">
+            <div class="col-sm-6">
+              <%= chart_fields.text_field :label %>
+   			    </div>
+   			    <div class="col-sm-6">
+              <%= chart_fields.text_field :height %>
+   			    </div>
+   			</div>
+   		<% end %>
   <% end %>
-  
-  <% if graph_type_placeholder == "draggable_bar_chart" %>
-  <div class="row">
-          <div class="col-sm-6">
- 			      <%= chart_fields.label :label, "Minimum Height" %>
- 			    </div>
- 			    <div class="col-sm-6">
- 			      <%= chart_fields.label :height, "Maximum Height" %>
- 			    </div>
- 			</div>
-      <% if index == 1 %>
-      <% end %>
-      <div class="row">
-          <div class="col-sm-6">
-            <%= chart_fields.text_field :label %>
- 			    </div>
- 			    <div class="col-sm-6">
-            <%= chart_fields.text_field :height %>
- 			    </div>
- 			</div>
- 		<% end %> 
-    
+
+
+
 
   <%= render partial: "skills/#{graph_type_placeholder}",
   locals: {question: @question} %>
