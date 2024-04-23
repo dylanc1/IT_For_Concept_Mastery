@@ -42,14 +42,20 @@ class AnswersController < ActionController::Base
     end
     
     score = params[:c].to_i
-    attempts = params[:a].to_i + 1
+    attempts = params[:a].to_i
     
     @question = Question.find_by(id: params[:q_id])
     if @question.correct_answer.downcase == params[:answer].downcase
       flash[:success] = "Correct!"
-      score += 1
+      if params[:q].to_i == attempts
+        score += 1
+        attempts += 1
+      end
     else
       flash[:danger] = "Incorrect :("
+      if params[:q].to_i == attempts
+        attempts += 1
+      end
     end
     redirect_to quiz_skill_url(id: params[:s_id].to_i, q: params[:q].to_i, c: score, a: attempts)
   end
