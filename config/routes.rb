@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   get 'learning/skills'
 
   get "/learning", to: "learning#dashboard"
+  get "/learning/draggable", to: "learning#draggable"
+  post "/update_yval", to: "learning#update", as: "update_yval"
 
   # assessments
 

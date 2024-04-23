@@ -53,8 +53,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_21_193439) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "question_type", default: "multiple_choice"
-    t.text "graph_content", default: "Placeholder Title"
     t.string "hint"
+    t.text "graph_content", default: "Placeholder Title"
   end
 
   create_table "skills", force: :cascade do |t|

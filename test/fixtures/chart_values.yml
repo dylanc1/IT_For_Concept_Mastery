@@ -3,7 +3,9 @@
 one:
   label: MyString
   height: 1
+  question: one
 
 two:
   label: MyString
   height: 1
+  question: one

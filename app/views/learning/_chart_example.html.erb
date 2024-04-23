@@ -1,0 +1,154 @@
+<html>
+<head>
+<script type="text/javascript">
+window.onload = function() {
+var chart = new CanvasJS.Chart("chartContainer", {       
+	animationEnabled: true,
+	theme: "light2",
+	axisX:{
+		minimum: 5,
+		maximum: 35
+	},
+	axisY:{
+		minimum: 0,
+		maximum: 100
+	},
+	data: [{
+		type: "column",
+		dataPoints: [
+            { x: 10, y: <%= @yvals[0] %> },
+            { x: 20, y: <%= @yvals[1] %> },
+            { x: 30, y: <%= @yvals[2] %> }
+		]
+	}]
+});
+chart.render();
+ 
+var xSnapDistance = chart.axisX[0].convertPixelToValue(chart.get("dataPointWidth")) / 2;
+var ySnapDistance = 3;
+ 
+var xValue, yValue;
+ 
+var mouseDown = false;
+var selected = null;
+var changeCursor = false;
+ 
+var timerId = null;
+ 
+function getPosition(e) {
+	var parentOffset = $("#chartContainer > .canvasjs-chart-container").offset();          	
+	var relX = e.pageX - parentOffset.left;
+	var relY = e.pageY - parentOffset.top;
+	xValue = Math.round(chart.axisX[0].convertPixelToValue(relX));
+	yValue = Math.round(chart.axisY[0].convertPixelToValue(relY));
+}
+ 
+function searchDataPoint() {
+	var dps = chart.data[0].dataPoints;
+	for(var i = 0; i < dps.length; i++ ) {
+		if( (xValue >= dps[i].x - xSnapDistance && xValue <= dps[i].x + xSnapDistance) && (yValue >= dps[i].y - ySnapDistance && yValue <= dps[i].y + ySnapDistance) ) 
+		{
+			if(mouseDown) {
+				selected = i;
+				break;
+			} else {
+				changeCursor = true;
+				break; 
+			}
+		} else {
+			selected = null;
+			changeCursor = false;
+		}
+	}
+}
+ 
+jQuery("#chartContainer > .canvasjs-chart-container").on({
+	mousedown: function(e) {
+		mouseDown = true;
+		getPosition(e);  
+		searchDataPoint();
+	},
+	mousemove: function(e) {
+		getPosition(e);
+		if(mouseDown) {
+			clearTimeout(timerId);
+			timerId = setTimeout(function(){
+				if(selected != null) {
+					chart.data[0].dataPoints[selected].y = yValue;
+					chart.render();
+				}   
+			}, 0);
+		}
+		else {
+			searchDataPoint();
+			if(changeCursor) {
+				chart.data[0].set("cursor", "n-resize");
+			} else {
+				chart.data[0].set("cursor", "default");
+			}
+		}
+	},
+	mouseup: function(e) {
+		if(selected != null) {
+			chart.data[0].dataPoints[selected].y = yValue;
+			var max = chart.data[0].dataPoints[0].y;
+			var min = chart.data[0].dataPoints[0].y;
+			var sum = chart.data[0].dataPoints[0].y;
+			
+			for(var i = 1; i < 3; i++){
+				sum += chart.data[0].dataPoints[i].y;
+				if(chart.data[0].dataPoints[i].y > max){
+					max = chart.data[0].dataPoints[i].y;
+				}
+				if(chart.data[0].dataPoints[i].y < min){
+					min = chart.data[0].dataPoints[i].y;
+				}
+			}
+			
+			var mean = sum / 3;
+			var range = max - min;
+			
+			
+			$.ajax({
+		      type: 'POST',
+		      url: '/update_yval',
+		      data: { yval: yValue, i: selected },
+		      success: function(response) {
+		        console.log('Server updated successfully');
+		        $('p#max').text(max);
+		        $('p#min').text(min);
+		        $('p#range').text(range);
+		        $('p#mean').text(mean.toFixed(2));
+		      },
+		      error: function(xhr, status, error) {
+		        console.error('Error updating server value:', error);
+		      }
+		    });
+			chart.render();
+			mouseDown = false;
+		}
+	}
+});
+	
+}
+</script>
+</head>
+<body>
+    <div><h4>Try changing the dragging the columns to see how the max, min, range, and mean are affected. </h4></div>
+    <br/>
+	<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+		<div style="display: flex; justify-content: center; text-align: center;">
+			<p style="flex-basis: 5%;"><strong>Maximum: </strong></p><p id="max" style="flex-basis: 5%;">70</p>
+		</div>
+		<div style="display: flex; justify-content: center; text-align: center;">
+			<p style="flex-basis: 5%;"><strong>Minimum: </strong></p><p id="min" style="flex-basis: 5%;">24</p>
+		</div>
+		<div style="display: flex; justify-content: center; text-align: center;">
+			<p style="flex-basis: 5%;"><strong>Range: </strong></p><p id="range" style="flex-basis: 5%;">46</p>
+		</div>
+		<div style="display: flex; justify-content: center; text-align: center;">
+			<p style="flex-basis: 5%;"><strong>Mean: </strong></p><p id="mean" style="flex-basis: 5%;">50.00</p>
+		</div>
+	</div>
+</body>
+</html>
