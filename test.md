@@ -12,7 +12,7 @@ To run all the automated tests, enter the following command in the project direc
 
 To run tests in a specific area of the program, add more information to the command:
 
-	rails test:integration
+  rails test:integration
 
 The tests can be found in the test folder in the project directory. In the test folder, there are multiple folders containing files with test cases organized based on what is being tested.
 
@@ -158,7 +158,7 @@ Viewing and destroying a skill
 
 * Verify: skill is not on list and does not appear anywhere else
 
-###  a Question
+### Creating a Question
 
 Creating a multiple choice question
 
