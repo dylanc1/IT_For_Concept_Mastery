@@ -18,6 +18,7 @@
     <%= form.text_area :content, rows: 4 %>
   </div>
 
+  <h3>Chart Information:</h3>
   <div>
     <%= form.label :graph_content, "Chart Title", style: "display: block" %>
     <%= form.text_area :graph_content%>
@@ -71,10 +72,11 @@
 
 
 
-  <%= render partial: "skills/#{graph_type_placeholder}",
+  <!--%= render partial: "skills/#{graph_type_placeholder}",
   locals: {question: @question} %>
 
   <!-- should only put heading once and choose on option -->
+  <h3>Answer Choices:</h3>
   <%= form.fields_for :answer_choices do |answer_fields| %>
     <div class="field">
       <% index = answer_fields.index + 1 %>
