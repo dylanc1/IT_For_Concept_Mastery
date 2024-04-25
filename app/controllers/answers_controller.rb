@@ -22,7 +22,7 @@ class AnswersController < ActionController::Base
         attempts += 1
       end
     else
-      if @question.hint.nil? || @question.hint.length == 0
+      if @question.hint.nil?
         flash[:danger] = "Incorrect :(" 
       else
         flash[:danger] = "Hint: " + @question.hint

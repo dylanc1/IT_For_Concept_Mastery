@@ -4,7 +4,4 @@ class Skill < ApplicationRecord
     
     has_many :user_skills, dependent: :destroy
     has_many :users, through: :user_skills
-    
-    validates :name, presence: true, length: {maximum: 40}
-    validates :description, presence: true, length: {maximum: 140}
 end
